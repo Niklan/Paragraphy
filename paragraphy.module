@@ -4,3 +4,37 @@
  * @file
  * Paragraphy predefined bundles.
  */
+
+/**
+ * Implements hook_menu().
+ */
+function paragraphy_menu() {
+  $items['admin/structure/paragraphs/paragraphy'] = array(
+    'title' => 'Paragraphy',
+    'type' => MENU_LOCAL_TASK,
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('paragraphy_settings_form'),
+    'access arguments' => array('administer paragraphs bundles')
+  );
+
+  return $items;
+}
+
+/**
+ * Settings form for module.
+ *
+ * @return array
+ */
+function paragraphy_settings_form() {
+  $form['Description'] = array(
+    '#type' => 'markup',
+    '#markup' => format_string(
+      '<p>!text</p>',
+      array(
+        '!text' => t('On this page you can enable new paragraphs types just click for checkbox and save it. But when you uncheck this, bundle, with all this field will be removed.')
+      )
+    ),
+  );
+
+  return $form;
+}
