@@ -9,12 +9,36 @@
  * Implements hook_install().
  */
 function paragraphy_install() {
-  
+  // Create new Bundle.
+  $bundle = new stdClass();
+  $bundle->name = 'test';
+  $bundle->bundle = 'paragraphy_testitc';
+  $bundle->locked = 0;
+  $status = paragraphs_bundle_save($bundle);
+
+  if (!field_info_field('paragraphy_test')) {
+    $field = array(
+      'field_name' => 'paragraphy_test',
+      'type' => 'text',
+    );
+    field_create_field($field);
+
+    // Create the instance on the bundle.
+    $instance = array(
+      'field_name' => 'paragraphy_test',
+      'entity_type' => 'paragraphs_item',
+      'label' => 'My Field Name',
+      'bundle' => 'paragraphy_testitc',
+      // If you don't set the "required" property then the field wont be required by default.
+      'required' => TRUE,
+      'widget' => array(
+        'type' => 'textfield',
+      ),
+    );
+    field_create_instance($instance);
+  }
 }
 
-/**
- * Implements hook_uninstall().
- */
 function paragraphy_uninstall() {
-  
+  paragraphs_bundle_delete('paragraphy_testitc');
 }

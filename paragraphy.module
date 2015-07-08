@@ -26,7 +26,17 @@ function paragraphy_menu() {
  * @return array
  */
 function paragraphy_settings_form() {
-  $form['Description'] = array(
+  // List of paragraphy types with data.
+  $paragraphy_list = array(
+    'paragraphy_wysiwyg' => array(
+      'title' => 'Paragraphy WYSIWYG',
+      'description' => t('Text field with WYSIWYG editor.'),
+      // Boilerplate for time.
+      'image' => 'https://raw.githubusercontent.com/Niklan/Glisseo/master/STARTER/screenshot.png',
+    ),
+  );
+
+  $form['description'] = array(
     '#type' => 'markup',
     '#markup' => format_string(
       '<p>!text</p>',
@@ -35,6 +45,28 @@ function paragraphy_settings_form() {
       )
     ),
   );
+
+  foreach ($paragraphy_list as $name => $info) {
+    $form[$name] = array(
+      '#type' => 'markup',
+      '#markup' => format_string(
+        '<div class="@paragraphy_wrapper"><img src="@image_src" alt=""><div class="@wrapper_class"><h2 class="@title_class">@title</h2><p>@description</p></div></div>',
+        array(
+          '@paragraphy_wrapper' => 'paragraphy-item',
+          '@image_src' =>  $info['image'],
+          '@wrapper_class' => 'paragraphy-info',
+          '@title_class' => 'title',
+          '@title' => $info['title'],
+          '@description' => $info['description'],
+        )
+      ),
+    );
+  }
+
+  $form['#attached']['css'] = array(
+    drupal_get_path('module', 'paragraphy') . '/styles/css/paragraphy_admin.css',
+  );
+
 
   return $form;
 }
