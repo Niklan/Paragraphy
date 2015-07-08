@@ -1,0 +1,6 @@
+name = Paragraphy
+description = Paragraph bundles for Paragraphs module.
+version = 7.x-1.x
+core = 7.x
+
+dependencies[] = paragraphs
