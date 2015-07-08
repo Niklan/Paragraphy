@@ -6,6 +6,51 @@
  */
 
 /**
+ * Implements hook_schema().
+ */
+function paragraphy_schema() {
+  $schema ['paragraphy'] = array(
+    'description' => 'Table for paragraphy bundles.',
+    'fields' => array(
+      'pid' => array(
+        'description' => 'The primary identifier for paragraphy.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'name' => array(
+        'description' => 'The machine name for paragraphy bundle.',
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+      ),
+      'title' => array(
+        'description' => 'Bundle title.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ),
+      'description' => array(
+        'description' => 'Bundle description.',
+        'type' => 'text',
+        'size' => 'medium',
+        'not null' => FALSE,
+      ),
+      'fields' => array(
+        'description' => 'The field info for bundles.',
+        'type' => 'blob',
+        'size' => 'big',
+        'not null' => TRUE,
+        'serialize' => TRUE,
+      ),
+    ),
+    'primary key' => array('pid'),
+  );
+  return $schema;
+}
+
+/**
  * Implements hook_install().
  */
 function paragraphy_install() {
